@@ -9,10 +9,12 @@ count=0
 for images in  colored:
     count+=1
     photo=cv2.imread(images)
-    resized=cv2.resize(photo,(300,300))
+    resized=cv2.resize(photo,(400,350))
     cv2.imshow("lakes",photo)
     cv2.waitKey()
     cv2.destroyAllWindows()
+    dest=upload + "/image{}.png".format(count)
+    
 
     black=cv2.cvtColor(resized,cv2.COLOR_BGR2GRAY)
-    cv2.imwrite(upload+"image{}".format(count),black)
+    cv2.imwrite(dest,black)
