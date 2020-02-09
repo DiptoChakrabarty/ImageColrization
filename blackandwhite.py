@@ -10,6 +10,7 @@ for images in  colored:
     count+=1
     photo=cv2.imread(images)
     resized=cv2.resize(photo,(400,350))
+    cv2.imwrite(images,resized)
     cv2.imshow("lakes",photo)
     cv2.waitKey()
     cv2.destroyAllWindows()
