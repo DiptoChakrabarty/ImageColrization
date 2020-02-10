@@ -29,18 +29,20 @@ latent=Dense(latent_dim,name="latent_vector")(model)
 encoder=Model(t,latent,name="encoder_layers")
 encoder.summary()'''
 
+#encoder model
 
-
-model=Sequential()
-model.add(Conv2D(64,kernel_size=3,activation='relu',input_shape=(400,350,1),strides=2))
-model.add(Conv2D(128,kernel_size=3,activation='relu',strides=2))
-model.add(Conv2D(256,kernel_size=3,activation='relu',strides=2))
-model.add(Flatten())
-model.add(Dense(latent_dim,name="latent_vector"))
+encoder=Sequential()
+encoder.add(Conv2D(64,kernel_size=3,activation='relu',input_shape=(400,350,1),strides=2))
+encoder.add(Conv2D(128,kernel_size=3,activation='relu',strides=2))
+encoder.add(Conv2D(256,kernel_size=3,activation='relu',strides=2))
+encoder.add(Flatten())
+encoder.add(Dense(latent_dim,name="latent_vector"))
 
 # make encoder model
 #encoder=Model(t,latent,name="encoder_layers")
-model.summary()
+encoder.summary()
+
+
 
 
 
