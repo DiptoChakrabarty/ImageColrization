@@ -3,8 +3,7 @@ import cv2
 import os
 import numpy as np
 from keras.models import Sequential,Model
-from keras.layers import Dense,Conv2D,Flatten,MaxPooling2D,Input
-
+from keras.layers import Dense,Conv2D,Flatten,MaxPooling2D,Input,Reshape,Conv2DTranspose
 
 
 ip="./colored"
@@ -41,6 +40,20 @@ encoder.add(Dense(latent_dim,name="latent_vector"))
 # make encoder model
 #encoder=Model(t,latent,name="encoder_layers")
 encoder.summary()
+
+
+# Decoder Model
+decoder=Sequential()
+decoder.add(Dense(400*350*1))
+decoder.Reshape((400,350,1))
+decoder.add(Conv2DTranspose(256,kernel_size=3,activation='relu',padding='same'))
+decoder.add(Conv2DTranspose(128,kernel_size=3,activation='relu',padding='same'))
+decoder.add(Conv2DTranspose(64,kernel_size=3,activation='relu',padding='same'))
+decoder.add(Conv2DTranspose(kernel_size=3,
+                          activation='sigmoid',
+                          padding='same',
+                          name='decoder_output'))
+
 
 
 
