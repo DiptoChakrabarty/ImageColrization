@@ -9,8 +9,8 @@ from keras.layers import Dense,Conv2D,Flatten,MaxPooling2D,Input,Reshape,Conv2DT
 ip="./colored"
 op="./black"
 
-itl=[os.path.join(ip,f) for f in os.listdir(ip)]
-otl=[os.path.join(op,f) for f in os.listdir(op)]
+color=[os.path.join(ip,f) for f in os.listdir(ip)]
+black=[os.path.join(op,f) for f in os.listdir(op)]
 latent_dim=256
 #create encoder
 t=Input(shape=(400,350,1),name="encoder_input")
@@ -61,7 +61,7 @@ pred=encoder.predict'''
 # Decoder model
 latent_inputs = Input(shape=(latent_dim,), name='decoder_input')
 dec = Dense(400*350*1)(latent_inputs)
-dec = Reshape((400,350,1))(x)
+dec = Reshape((400,350,1))(dec)
 
 dec = Conv2DTranspose(256,kernel_size=3,activation="relu",padding="same",strides=2)(dec)
 dec = Conv2DTranspose(128,kernel_size=3,activation="relu",padding="same",strides=2)(dec)
@@ -71,6 +71,17 @@ output = Conv2DTranspose(filters=1,kernel_size=3,activation="sigmoid",padding="s
 
 decoder = Model(latent_inputs,output,name="decoder_model")
 decoder.summary()
+
+
+# autoencoder = encoder + decoder
+# instantiate autoencoder model
+autoencoder = Model(t, decoder(encoder(t)), name='autoencoder')
+autoencoder.summary()
+
+# Mean Square Error (MSE) loss function, Adam optimizer
+autoencoder.compile(loss='mse', optimizer='adam')
+
+autoencoder.fit(black,color)
 
 
 
