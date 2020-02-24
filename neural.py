@@ -6,14 +6,14 @@ from keras.models import Sequential,Model
 from keras.layers import Dense,Conv2D,Flatten,MaxPooling2D,Input,Reshape,Conv2DTranspose
 from keras.preprocessing.image import ImageDataGenerator
 # create generator
-datagen = ImageDataGenerator(rescale=1/255)
+#datagen = ImageDataGenerator(rescale=1/255)
 # prepare an iterators for each dataset
 
 ip="./colored"
 op="./black"
 
-color= np.array([datagen.flow_from_directory(ip, class_mode='binary')])
-black = np.array([datagen.flow_from_directory(op, class_mode='binary')])
+#color= np.array([datagen.flow_from_directory(ip, class_mode='binary')])
+#black = np.array([datagen.flow_from_directory(op, class_mode='binary')])
 
 
 #color=[os.path.join(ip,f) for f in os.listdir(ip)]
@@ -88,7 +88,7 @@ autoencoder.summary()
 # Mean Square Error (MSE) loss function, Adam optimizer
 autoencoder.compile(loss='mse', optimizer='adam')
 
-autoencoder.fit((item for item in  black),(item for item in  color))
+#autoencoder.fit((item for item in  black),(item for item in  color))
 
 
 
